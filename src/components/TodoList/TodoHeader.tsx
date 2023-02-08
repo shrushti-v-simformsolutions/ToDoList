@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../redux/taskSlice';
+import { addTask } from '../../redux/reducers/taskSlice';
+import styles from './TodoHeaderStyles';
 
-const TodoHeader = () => {
+const TodoHeader = ({ onChange }) => {
 const [todo, setTodo] = useState("");
 const dispatch = useDispatch();
 
@@ -13,7 +14,8 @@ const onSubmit = () => {
     setTodo("");
     return;
   }
-  dispatch(addTask({task: todo}));
+  dispatch(addTask({id: todo, list: todo}));
+  onChange(todo);
   setTodo("");
 };
 
@@ -39,37 +41,5 @@ const onSubmit = () => {
      </View>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 10,
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textInput: {
-    padding: 10,
-    margin: 10,
-    width: '90%',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
-  button: {
-    padding: 10,
-    margin: 10,
-    width: '90%',
-    borderRadius: 5,
-    alignItems: 'center',
-    backgroundColor: 'gray',
-  },
-  buttonText: { 
-    color: 'white', 
-  },
-});
 
 export default TodoHeader;
