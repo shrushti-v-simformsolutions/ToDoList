@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { useDispatch } from 'react-redux';
 import { addTask } from '../redux/taskSlice';
 
-const TodoHeader = () => {
+const TodoHeader = ({ onChange }) => {
 const [todo, setTodo] = useState("");
 const dispatch = useDispatch();
 
@@ -13,7 +13,8 @@ const onSubmit = () => {
     setTodo("");
     return;
   }
-  dispatch(addTask({task: todo}));
+  dispatch(addTask({id: todo, list: todo}));
+  onChange(todo);
   setTodo("");
 };
 
